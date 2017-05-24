@@ -5,4 +5,5 @@
 #include "font_arial_bold_ttf_10.h"
 #include "font_arial_bold_ttf_36.h"
 #include "font_arial_ttf_12.h"
-#include "font_arial_ttf_10.h"
+#include "font_thin_pixel_7_ttf_20.h"
+

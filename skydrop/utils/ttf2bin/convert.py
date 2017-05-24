@@ -64,12 +64,14 @@ class FontConvertor:
         self.fontsize = fontsize
         
         height = fontsize * 3
-        
+
         self.font = PIL.ImageFont.truetype(fontname, fontsize)
         self.buffer = PIL.Image.new('1', (2048, height), 0)
+        self.buffer_spacing = PIL.Image.new('1', (2048, height), 0)
         self.draw = PIL.ImageDraw.Draw(self.buffer)
         self.chars = []
         self.width = 0
+        self.width_spacing = 0
         self.height = height
         self.spacing = spacing
         self.start = start
@@ -88,8 +90,10 @@ class FontConvertor:
                 y = move_xy[i][1]
             else:
                 y = 0
-                
+
             self.width += item.copy(self.width, y, self.buffer)
+            self.width_spacing += item.copy(self.width_spacing, y, self.buffer_spacing) + 2
+            
             self.chars.append(item)
             
         #get char A height
@@ -102,9 +106,12 @@ class FontConvertor:
         self.w, self.h = self.buffer.size
         if (self.h % 8 <> 0):
             self.h = ((self.h / 8 + 1) * 8) 
-        
-        self.im = PIL.Image.new('1', (self.w, self.h), 0)
-        self.im.paste(self.buffer, (0, 0))
+
+        self.buffer_spacing = self.buffer_spacing.crop(self.buffer_spacing.getbbox())
+        w2 = self.buffer_spacing.size[0] + 20
+        h2 = self.buffer_spacing.size[1] * 2
+        self.im = PIL.Image.new('1', (w2, h2), 0)
+        self.im.paste(self.buffer_spacing, (10, h2 / 4))
         self.im.save("generated_%s_%d.png" % (os.path.basename(self.fontname), self.fontsize))
        
         self.n = self.h / 8
@@ -270,6 +277,12 @@ text_M = FontConvertor("source/Arial.ttf", 10, 1, 33, 127)
 text_M.Generate({49: 5, 45:2, 52: 5}, {81: [0, -1]})
 text_M.Convert()
 text_M.Save()
+
+text_M2 = FontConvertor("source/style-7_thin-pixel-7/thin_pixel-7.ttf", 20, 1, 33, 127)
+text_M2.Generate({}, {36: [0, +1]})
+text_M2.Convert()
+text_M2.Save()
+
 
 # data = conv.data
 # 
