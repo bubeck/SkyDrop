@@ -91,7 +91,7 @@ struct gps_data_t
 
 	int32_t latitude;	//* 10^7
 	int32_t longtitude;	//* 10^7
-	float groud_speed; 	//in knots
+	float ground_speed; 	//in knots
 
 	float heading;
 	uint32_t utc_time;

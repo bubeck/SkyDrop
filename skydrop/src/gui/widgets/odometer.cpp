@@ -115,7 +115,7 @@ void widget_home_time_draw(uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint8_t f
 		float min;
 
 		// distance is in km, ground_speed in knots. This gives seconds, but we need minutes:
-		min = ((fc.flight.home_distance * 1000.0) / (fc.gps_data.groud_speed * FC_KNOTS_TO_MPS)) / 60.0;
+		min = ((fc.flight.home_distance * 1000.0) / (fc.gps_data.ground_speed * FC_KNOTS_TO_MPS)) / 60.0;
 		sprintf_P(text, PSTR("%.0f min"), min);
 	}
 	else
