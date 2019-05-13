@@ -38,6 +38,11 @@ void widget_alt_draw(uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint8_t index)
 	else
 		strcpy_P(text, PSTR("---"));
 	widget_value_int(text, x, y + lh, w, h - lh);
+
+	if (val < 400.0) {
+		if (task_get_ms_tick() % 1000 < 500 )
+			disp.Invert(x, y, x+w, y+h);
+	}
 }
 
 void widget_alt_menu_irqh(uint8_t type, uint8_t * buff, uint8_t index)
